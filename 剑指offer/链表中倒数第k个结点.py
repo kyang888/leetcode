@@ -4,6 +4,8 @@
 #         self.val = x
 #         self.next = None
 
+
+# 前后指针的做法
 class Solution:
     def FindKthToTail(self, head, k):
         # 如果k<=0,return None
@@ -21,4 +23,24 @@ class Solution:
         while first.next:
             first = first.next
             end = end.next
-        return end 
+        return end
+
+# 递归的做法
+class Solution:
+    def FindKthToTail(self, head, k):
+        # write code here
+        if k == 0:
+            return None
+        result = [k]
+        self.f(head, result)
+        if len(result) == 1:
+            return None
+        else:
+            return result[1]
+
+    def f(self, head, result):
+        if head:
+            self.f(head.next, result)
+            result[0] -= 1
+            if result[0] == 0:
+                result.append(head)
